@@ -1,9 +1,9 @@
 'use client'
 import React from 'react'
 import Purpose from './Purpose'
-import FeaturesPage from './FeaturesPage'
+import FeaturesPage from '@/Components/FeaturesPage'
 import HowItWorksPage from './HowItWorksPage'
-import Cryptoprices from './Cryptoprices'
+import Cryptoprices from '@/Components/Cryptoprices'
 
 function Home() {
   return (
