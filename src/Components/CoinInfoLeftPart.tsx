@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowDown, ArrowUp, TrendingDown, TrendingUp } from "lucide-react";
+import { ArrowDown, ArrowUp,TrendingDown, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 const formatNumber = (num: number) => new Intl.NumberFormat("en-US").format(num);
 
@@ -142,9 +143,14 @@ const CoinInfo = ({ coinData }: { coinData: any }) => {
         </div>
 
         {/* Action Button */}
-        <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg">
-          Trade {coinData?.symbol?.toUpperCase()}
-        </button>
+        <Link
+          href={`/trade/${coinData?.id}?price=${coinData?.market_data?.current_price?.usd}`}
+          passHref
+        >
+          <button className="w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg">
+            Trade {coinData?.symbol?.toUpperCase()}
+          </button>
+        </Link>
       </div>
     </div>
   );
