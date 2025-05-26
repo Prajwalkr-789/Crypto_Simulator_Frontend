@@ -13,12 +13,12 @@ const COLORS = ['#00b894', '#0984e3', '#fdcb6e']
 
 export default function PortfolioSnapshot() {
   return (
-    <Card className="bg-gradient-to-br from-zinc-950 via-zinc-950  to-black text-white border border-zinc-600 rounded-2xl shadow-xl">
+    <Card className=" text-white border border-zinc-800 rounded-2xl shadow-xl">
       <CardHeader>
         <CardTitle className="text-xl font-semibold">Your Portfolio</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center">
-        <div className="h-48 w-full">
+        <div className="h-44 w-full">
           <ResponsiveContainer>
             <PieChart>
               <Pie
@@ -36,19 +36,19 @@ export default function PortfolioSnapshot() {
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip contentStyle={{borderRadius : "5px" ,backdropFilter:"blur(15px)" ,color:"#fff" , backgroundColor:"transparent"}}  />
+              <Tooltip contentStyle={{borderRadius : "5px" ,backdropFilter:"blur(15px)"  , backgroundColor:"transparent"} }  />
             </PieChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 w-full text-sm text-center space-y-1">
+        <div className="mt-1 w-full text-sm text-center ">
           {data.map((entry, index) => (
             <div key={index} className="flex justify-between px-4">
                 <div>
-                    <span className='text-sm'>{entry.name} </span>
-                    <span className='font-bold text-md'>( {entry.shortform} )</span>
+                    <span className='text-xs'>{entry.name} </span>
+                    <span className='font-bold text-xs'>( {entry.shortform} )</span>
                 </div>
               
-              <span >{entry.value}%</span>
+              <span className='text-xs'>{entry.value}%</span>
             </div>
           ))}
         </div>

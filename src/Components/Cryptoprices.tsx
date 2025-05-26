@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import React from "react";
 
@@ -18,12 +18,12 @@ const Cryptoprices: React.FC = () => {
       high: "$0.000012",
       low: "$0.000009",
     },
-    { name: "Litecoin", price: "$90", high: "$95", low: "$85" },
-    { name: "Chainlink", price: "$7", high: "$7.5", low: "$6.8" },
-    { name: "Avalanche", price: "$15", high: "$16", low: "$14.5" },
-    { name: "Polygon", price: "$1", high: "$1.1", low: "$0.9" },
-    { name: "Uniswap", price: "$5", high: "$5.5", low: "$4.8" },
-    { name: "Cosmos", price: "$10", high: "$11", low: "$9.5" },
+    // { name: "Litecoin", price: "$90", high: "$95", low: "$85" },
+    // { name: "Chainlink", price: "$7", high: "$7.5", low: "$6.8" },
+    // { name: "Avalanche", price: "$15", high: "$16", low: "$14.5" },
+    // { name: "Polygon", price: "$1", high: "$1.1", low: "$0.9" },
+    // { name: "Uniswap", price: "$5", high: "$5.5", low: "$4.8" },
+    // { name: "Cosmos", price: "$10", high: "$11", low: "$9.5" },
   ];
 
   const cryptoDataImages = [
@@ -105,14 +105,15 @@ const Cryptoprices: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-gray-950 text-gray-200 p-6">
-      <h1 className="text-4xl font-serif text-center mb-8 bg-clip-text text-transparent bg-gradient-to-t from-zinc-800 via-zinc-600 to-zinc-400 drop-shadow-lg">
+    <>
+    <div className="min-h-screen bg-gradient-to-tr from-black via-zinc-950 to-zinc-900 text-gray-200 p-6">
+      <h1 className="text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-t from-zinc-400 via-zinc-500 to-zinc-400 drop-shadow-lg">
         Crypto Prices
       </h1>
       <h1 className="text-sm font-extralight text-center mb-8 text-gray-400 drop-shadow-lg">
         Access up-to-date prices for efficient trading
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-1 md:p-10">
         {cryptoData.map((crypto, index) => (
           <div
             key={index}
@@ -145,9 +146,9 @@ const Cryptoprices: React.FC = () => {
                 {crypto.price}
               </p>
               <p
-                // className={`text-sm font-medium ${
-                //   Math.random() > 0.5 ? "text-green-400" : "text-red-400"
-                // }`}
+              // className={`text-sm font-medium ${
+              //   Math.random() > 0.5 ? "text-green-400" : "text-red-400"
+              // }`}
               >
                 {/* {Math.random() > 0.5 ? "+" : "-"}
                 {Math.floor(Math.random() * 10)}% */}
@@ -158,38 +159,39 @@ const Cryptoprices: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="relative  bg-radial  from-zinc-800  to-black h-screen flex flex-col justify-center items-center text-white text-center px-6">
-        <div className="absolute inset-0  opacity-40"></div>
-
-        <div className="relative backdrop-blur-xl   z-10 max-w-2xl p-8 rounded-2xl ">
-          <h2 className="text-4xl sm:text-5xl font-medium mb-4 tracking-wide text-zinc-300">
-            Crypto Simulator
-          </h2>
-          <h2 className="text-xl text-gray-300  font-light mb-4 tracking-wide">
-            Ready to Elevate Your Trading?
-          </h2>
-          <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-            Join us and simulate real-world crypto trading with{" "}
-            <span className="font-serif text-green-500 underline">
-              virtual money
-            </span>{" "}
-            — Learn, strategize.
-          </p>
-
-          <div className="flex flex-col justify-center items-center sm:flex-row gap-4">
-            <Link href="/signup">
-              <button
-                style={{ border: "0.1px solid oklch(0.442 0.017 285.786)" }}
-                className=" hover:cursor-pointer text-white px-4 py-2 rounded-full text-md font-semibold shadow-lg transition-all duration-300 hover:scale-105"
-              >
-                Sign Up for Free
-              </button>
-            </Link>
-          </div>
-        </div>
-      </div>
-     
+      
     </div>
+    <div className="relative  bg-radial  from-zinc-800  to-black h-screen flex flex-col justify-center items-center text-white text-center px-6">
+    <div className="absolute inset-0  opacity-40"></div>
+
+    <div className="relative    z-10 max-w-2xl p-1 md:p-8 rounded-2xl ">
+      <h2 className="text-5xl sm:text-5xl font-medium mb-4 tracking-wide text-zinc-300">
+        Crypto Simulator
+      </h2>
+      <h2 className="text-xl text-gray-300  font-light mb-4 tracking-wide">
+        Ready to Elevate Your Trading?
+      </h2>
+      <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+        Join us and simulate real-world crypto trading with{" "}
+        <span className="font-serif text-green-500 underline">
+          virtual money
+        </span>{" "}
+        — Learn, strategize.
+      </p>
+
+      <div className="flex flex-col justify-center items-center sm:flex-row gap-4">
+        <Link href="/signup">
+          <button
+            style={{ border: "0.1px solid oklch(0.442 0.017 285.786)" }}
+            className=" hover:cursor-pointer text-white px-4 py-2 rounded-full text-md font-semibold shadow-lg transition-all duration-300 hover:scale-105"
+          >
+            Sign Up for Free
+          </button>
+        </Link>
+      </div>
+    </div>
+  </div>
+  </>
   );
 };
 

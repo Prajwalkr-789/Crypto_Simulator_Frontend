@@ -2,11 +2,37 @@
 @import "tw-animate-css";
 
 @import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&display=swap');
-.mainheader {
-  font-family: "Moon Dance", cursive;
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Scribble&display=swap');
+
+::selection{
+  background-color: #383838;
+  color: white;
+}
+
+/* .spotlight-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), transparent 100px, rgba(0, 0, 0, 0.9) 200px);
+  transition: background 0.1s ease;
+  z-index: 10;
+} */
+
+
+.rubik-scribble-regular {
+  font-family: "Rubik Scribble", system-ui;
   font-weight: 400;
   font-style: normal;
 }
+
 
 .mainheader2 {
   font-family: "Edu AU VIC WA NT Arrows", Italic;

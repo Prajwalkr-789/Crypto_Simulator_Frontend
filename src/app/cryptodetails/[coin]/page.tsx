@@ -6,10 +6,12 @@ import Link from "next/link";
 import axios from "axios";
 import CoinInfoLeftPart from "@/Components/CoinInfoLeftPart";
 import ChartdataRightpart from "@/Components/ChartdataRightpart";
-
+import Loader from './components/Loader'
+import { div } from "framer-motion/client";
 // Dynamically import ApexCharts
 
 const CryptoDetails = () => {
+  const isAuthenticated = true;
   const { coin } = useParams();
   const [priceHistory, setPriceHistory] = useState<{ time: string; price: number }[]>([]);
   const [loading, setLoading] = useState(true);
@@ -49,15 +51,21 @@ const CryptoDetails = () => {
   }, [coin, days]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    if(isAuthenticated) {
+      fetchData();
+    }else {
+      window.location.href = "/signup"
+    }
+  }, [isAuthenticated , fetchData]);
 
+
+  if(!isAuthenticated) return null;
   return (
     <div className="min-h-screen min-w-full flex flex-col items-center justify-center bg-black text-white p-6">
   <Link href="/cryptopricepage" className="text-green-400 hover:underline">
     ← Back
   </Link>
-  <h1 className="text-4xl text-center mt-4 capitalize">
+  <h1 className="text-4xl text-center mt-4 font-bold font-serif capitalize">
     {coinData?.name} ({coinData?.symbol?.toUpperCase()})
   </h1>
 

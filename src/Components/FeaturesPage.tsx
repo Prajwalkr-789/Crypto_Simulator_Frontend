@@ -111,7 +111,7 @@ export default function FeaturesPage() {
 
         {/* Right Section - Charts */}
         <motion.div
-          className="md:w-1/2 flex flex-col gap-6"
+          className=" md:w-1/2 flex flex-col gap-6"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
@@ -123,7 +123,7 @@ export default function FeaturesPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.2 }}
-            className="p-6 rounded-xl shadow-lg h-96 flex flex-col justify-center text-center"
+            className=" @min-sm:p-8 md:p-6 rounded-xl shadow-lg h-96 flex flex-col justify-center text-center"
           >
             <h3 className="text-gray-200 font-semibold text-xl mb-3">
               Bitcoin Price Trends
@@ -156,11 +156,11 @@ export default function FeaturesPage() {
           </motion.div>
 
           {/* Live Crypto Prices */}
-          <motion.div
+          {/* <motion.div
             variants={fadeUp}
             className="p-6 rounded-xl shadow-lg h-56 overflow-hidden relative text-center"
-          >
-            <h3 className="text-zinc-200 font-semibold text-xl text-center mb-3">
+          > */}
+            {/* <h3 className="text-zinc-200 font-semibold text-xl text-center mb-3">
               Live Market Prices
             </h3>
             <div className="animate-scroll absolute top-14 w-full">
@@ -172,8 +172,8 @@ export default function FeaturesPage() {
                   <span className="font-semibold">{item.name}</span> {item.price}
                 </div>
               ))}
-            </div>
-          </motion.div>
+            </div> */}
+          {/* </motion.div> */}
         </motion.div>
       </div>
     </div>

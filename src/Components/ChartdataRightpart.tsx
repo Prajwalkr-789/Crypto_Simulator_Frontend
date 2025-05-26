@@ -14,7 +14,7 @@ const CryptoChart = ({
   setDays: (days: number) => void;
 }) => {
   return (
-    <div className="w-full md:w-2/4">
+    <div className="w-full  md:w-2/4">
       <Chart
         options={{
           chart: {
@@ -57,7 +57,7 @@ const CryptoChart = ({
             }`}
             onClick={() => setDays(+day)}
           >
-            {day === "1" ? "Hourly" : day === "3" ? "3 Days" : "Weekly"}
+            {day === "1" ? "1 day" : day === "3" ? "3 Days" : "Weekly"}  
           </button>
         ))}
       </div>

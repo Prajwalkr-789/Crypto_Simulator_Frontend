@@ -1,234 +1,280 @@
-"use client"
+'use client';
 
-import { useSearchParams, useParams } from "next/navigation"
-import { useState, useEffect } from "react"
-import axios from "axios"
-import { ArrowDown, ArrowUp, Check, X, Loader2 } from "lucide-react"
-
+import { useSearchParams, useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
+import { toastUtils } from "@/utils/toastUtils";
+import { useAuth } from "@/Contexts/AuthState"; 
 const TradePage = () => {
-  const params = useParams()
-  const searchParams = useSearchParams()
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const params = useParams();
+  const searchParams = useSearchParams();
 
-  const coinName = params.id?.toString()
-  const price = Number.parseFloat(searchParams.get("price") || "0")
+  const coinName = params.id?.toString();
+  const price = Number.parseFloat(searchParams.get("price") || "0");
 
-  const [amount, setAmount] = useState("")
-  const [type, setType] = useState<"buy" | "sell">("buy")
-  const [status, setStatus] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [showMessage, setShowMessage] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [amount, setAmount] = useState(0);
+  const [type, setType] = useState<"buy" | "sell">("buy");
+  const [balance, setBalance] = useState(0);
 
-  useEffect(() => {
-    if (status) {
-      setShowMessage(true)
-      const timer = setTimeout(() => {
-        setShowMessage(false)
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [status])
-
-  const handleTrade = async () => {
-    const quantity = Number.parseFloat(amount)
-    if (!coinName || !price || isNaN(quantity) || quantity <= 0) {
-      setIsSuccess(false)
-      setStatus("Invalid input or missing data.")
-      return
-    }
-
-    setIsLoading(true)
-
-    try {
-    //   const response = await axios.post("/api/trade", {
-    //     coin: coinName,
-    //     price,
-    //     quantity,
-    //     type,
-    //     timestamp: new Date().toISOString(),
-    //   })
-    const response = {  
-        data: { message: "Trade successful!" },
-        status: 200,
-        } 
-
-
-      if (response.status === 200) {
-        setIsSuccess(true)
-        setStatus(`${type === "buy" ? "Bought" : "Sold"} ${quantity} ${coinName?.toUpperCase()} successfully!`)
-        setAmount("")
-      } else {
-        setIsSuccess(false)
-        setStatus("Trade failed. Please try again.")
+const fetchBalance = async () => {
+  try {
+    const res = await axios.get(
+      `http://localhost:8080/api/walletbalance`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       }
-    } catch (error) {
-      console.error(error)
-      setIsSuccess(false)
-      setStatus("Something went wrong with your trade.")
-    } finally {
-      setIsLoading(false)
+    );
+
+    if (res.status === 200) {
+      console.log(res);
+      setBalance(res?.data?.walletBalance);
+    } else {
+      toastUtils.showError(res.statusText || "Failed to fetch balance");
     }
+  } catch (error) {
+    toastUtils.showError("Error fetching balance");
+  }
+};
+
+useEffect(() => {
+  if(!isAuthenticated){
+    router.push('/signup')
+  }
+  fetchBalance();
+}, []);
+
+
+
+const handleTrade = async () => {
+  const quantity = amount;
+  if (!coinName) {
+    toastUtils.showError("Coin name is missing.");
+    return;
+  }
+  if (!price) {
+    toastUtils.showError("Price is missing or invalid.");
+    return;
+  }
+  if (isNaN(quantity)) {
+    toastUtils.showError("Amount is not a valid number.");
+    return;
+  }
+  if (quantity <= 0) {
+    toastUtils.showError("Amount must be greater than zero.");
+    return;
   }
 
-  const totalValue = Number.parseFloat(amount) * price || 0
+  const payload = {
+    coinName,
+    pricePerCoin: price,
+    quantity,
+  };
+
+  const endpoint =
+    type === "buy" ? "http://localhost:8080/api/buy" : "http://localhost:8080/api/sell";
+
+  if (type === "buy" && quantity * price > balance) {
+    toastUtils.showError("Insufficient balance for this trade.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(endpoint, payload, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+      validateStatus(status) {
+        return status >= 200 && status < 500; 
+      },
+    });
+
+    if (response.status === 200) {
+      toastUtils.showMessage(
+        `${type === "buy" ? "Bought" : "Sold"} ${quantity} ${coinName.toUpperCase()} successfully!`
+      );
+      setAmount(0);
+      fetchBalance();
+
+    }else if(response.status === 4000){
+      toastUtils.showError("Insufficient balance for this trade.");
+    } else if (response.status === 404) {
+      toastUtils.showError("Trade failed. Please try again.");
+    } else {
+      toastUtils.showError("Trade failed. Please try again.");
+    }
+  } catch (error) {
+    console.error("Trade error:", error);
+    toastUtils.showError("Something went wrong with your trade.");
+  }
+};
+
+  const totalValue = amount * price || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-gray-950 via-gray-900 to-black text-white flex items-center justify-center p-6">
-      <div className="max-w-md w-full bg-gradient-to-br from-gray-900 to-gray-950 p-8 rounded-2xl shadow-[0_0_25px_rgba(0,0,0,0.3)] border border-zinc-800 space-y-6 relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(30,64,175,0.3),transparent_40%)]"></div>
-          <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(5,150,105,0.3),transparent_40%)]"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative">
-          <div className="flex items-center justify-center mb-2">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
-              <span className="text-xl font-bold">{coinName?.slice(0, 1).toUpperCase()}</span>
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-            Trade {coinName?.toUpperCase()}
-          </h1>
-          <div className="flex justify-center mt-2">
-            <div className="px-4 py-1.5 rounded-full  backdrop-blur-sm border border-zinc-700/50">
-              <p className="text-center text-sm">
-                Current Price:{" "}
-                <span className="font-medium text-green-400">
-                  ${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-5 relative">
-          <div className="group">
-            <label htmlFor="amount" className="block text-sm font-medium text-zinc-400 mb-1.5 ml-1">
-              Amount
-            </label>
-            <div className="relative">
-              <input
-                id="amount"
-                type="number"
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl  border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+    <div className="min-h-screen bg-gradient-to-tl from-gray-950 via-gray-900 to-black">
+      <div className=" text-white  flex flex-col items-center justify-center p-6">
+        {/* <div className="mt-16 ml-5 fixed top-0 left-5 px-6 py-4 rounded-2xl bg-gradient-to-br from-[#111827] to-[#1f2937] text-white shadow-xl shadow-black/30 border border-zinc-700 flex items-center gap-4">
+          <div className="bg-green-600/20 p-3 rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-green-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8c-1.657 0-3 1.343-3 3v6m0 0H6m3 0h6m3 0h-3m0 0v-6a3 3 0 10-6 0v6"
               />
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
-                {coinName?.toUpperCase()}
-              </div>
-            </div>
+            </svg>
+          </div>
+          <div>
+            <p className="text-sm text-zinc-400">Available Balance</p>
+            <p className="text-2xl font-semibold text-green-400">$100,000</p>
+          </div>
+        </div> */}
+
+        <div className="max-w-md mt-14 w-full bg-gradient-to-br from-gray-900 to-gray-950 p-8 rounded-2xl shadow-[0_0_25px_rgba(0,0,0,0.3)] border border-zinc-800 space-y-6 relative overflow-hidden">
+          {/* Background pattern */}
+
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(30,64,175,0.3),transparent_40%)]"></div>
+            <div className="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(5,150,105,0.3),transparent_40%)]"></div>
           </div>
 
-          {amount && (
-            <div className="bg-zinc-800/30 rounded-xl p-3 border border-zinc-800 animate-fadeIn">
-              <div className="flex justify-between text-sm">
-                <span className="text-zinc-400">Total Value:</span>
-                <span className="font-medium">
-                  ${totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          {/* Content */}
+          <div className="relative">
+            <div className="flex items-center justify-center mb-2">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                <span className="text-xl font-bold">
+                  {coinName?.slice(0, 1).toUpperCase()}
                 </span>
               </div>
             </div>
-          )}
-
-          <div className="flex gap-4">
-            <button
-              onClick={() => setType("buy")}
-              className={`w-full py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                type === "buy"
-                  ? "bg-green-600/80 shadow-lg shadow-green-900/30"
-                  : "bg-zinc-800/70 border border-green-600/30 hover:bg-zinc-800 hover:border-green-500/50"
-              }`}
-            >
-              <ArrowDown className={`w-4 h-4 ${type === "buy" ? "" : "text-green-500"}`} />
-              Buy
-            </button>
-            <button
-              onClick={() => setType("sell")}
-              className={`w-full py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                type === "sell"
-                  ? "bg-red-600/80 shadow-lg shadow-red-900/30"
-                  : "bg-zinc-800/70 border border-red-600/30 hover:bg-zinc-800 hover:border-red-500/50"
-              }`}
-            >
-              <ArrowUp className={`w-4 h-4 ${type === "sell" ? "" : "text-red-500"}`} />
-              Sell
-            </button>
+            <h1 className="text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+              Trade {coinName?.toUpperCase()}
+            </h1>
+            <div className="flex justify-center mt-2">
+              <div className="px-4 py-1.5 rounded-full  backdrop-blur-sm border border-zinc-700/50">
+                <p className="text-center text-sm">
+                  Current Price:{" "}
+                  <span className="font-medium text-green-400">
+                    $
+                    {price.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </p>
+              </div>
+               <div className="px-4 py-1.5 rounded-full  backdrop-blur-sm border border-zinc-700/50">
+                <p className="text-center text-sm">
+                  Wallet Balance:{" "}
+                  <span className="font-medium text-green-400">
+                    $
+                    {balance.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </p>
+              </div>
+            </div>
           </div>
 
-          <button
-            onClick={handleTrade}
-            disabled={isLoading}
-            className="w-full bg-gradient-to-r from-gray-950 to-indigo-900 py-3.5 rounded-xl font-medium hover:from-black hover:to-indigo-900 transition-all duration-200 shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              <>Confirm {type === "buy" ? "Purchase" : "Sale"}</>
-            )}
-          </button>
+          <div className="space-y-5 relative">
+            <div className="group">
+              <label
+                className="block text-sm font-medium text-zinc-400 mb-1.5 ml-1"
+              >
+                Amount
+              </label>
+              <div className="relative">
+                <input
+                  id="amount"
+                  type="number"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) =>  setAmount(Number(e.target.value))}
+                  className="w-full px-4 py-3 rounded-xl  border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none">
+                  {coinName?.toUpperCase()}
+                </div>
+              </div>
+            </div>
 
-          {/* Animated status message */}
-          <div
-            className={`fixed top-4 right-4 max-w-xs w-full p-4 rounded-lg shadow-lg border transition-all duration-500 transform z-50 ${
-              showMessage ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-            } ${
-              isSuccess
-                ? "bg-green-900/80 border-green-700 backdrop-blur-sm"
-                : "bg-red-900/80 border-red-700 backdrop-blur-sm"
-            }`}
-          >
-            <div className="flex items-start gap-3">
-              <div className={`rounded-full p-1 ${isSuccess ? "bg-green-500" : "bg-red-500"}`}>
-                {isSuccess ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
+            {amount != 0 && (
+              <div className="bg-zinc-800/30 rounded-xl p-3 border border-zinc-800 animate-fadeIn">
+                <div className="flex justify-between text-sm">
+                  <span className="text-zinc-400">Total Value:</span>
+                  <span className="font-medium">
+                    $
+                    {totalValue.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
+                  </span>
+                </div>
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">{isSuccess ? "Success!" : "Error"}</p>
-                <p className="text-xs opacity-90 mt-0.5">{status}</p>
-              </div>
-              <button onClick={() => setShowMessage(false)} className="text-white/80 hover:text-white">
-                <X className="w-4 h-4" />
+            )}
+
+            <div className="flex gap-4">
+              <button
+                onClick={() => setType("buy")}
+                className={`w-full py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                  type === "buy"
+                    ? "bg-green-600/80 shadow-lg shadow-green-900/30"
+                    : "bg-zinc-800/70 border border-green-600/30 hover:bg-zinc-800 hover:border-green-500/50"
+                }`}
+              >
+                <ArrowDown
+                  className={`w-4 h-4 ${
+                    type === "buy" ? "" : "text-green-500"
+                  }`}
+                />
+                Buy
+              </button>
+              <button
+                onClick={() => setType("sell")}
+                className={`w-full py-3 rounded-xl font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+                  type === "sell"
+                    ? "bg-red-600/80 shadow-lg shadow-red-900/30"
+                    : "bg-zinc-800/70 border border-red-600/30 hover:bg-zinc-800 hover:border-red-500/50"
+                }`}
+              >
+                <ArrowUp
+                  className={`w-4 h-4 ${type === "sell" ? "" : "text-red-500"}`}
+                />
+                Sell
               </button>
             </div>
+
+            <button
+              onClick={handleTrade}
+              className="w-full bg-gradient-to-r from-gray-950 to-indigo-900 py-3.5 rounded-xl font-medium hover:from-black hover:to-indigo-900 transition-all duration-200 shadow-lg shadow-blue-900/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+            >Confirm {type === "buy" ? "Purchase" : "Sell"}
+            </button>
+
           </div>
 
-          {/* Confetti effect for successful trades */}
-          {isSuccess && showMessage && (
-            <div className="fixed inset-0 pointer-events-none z-40">
-              {[...Array(30)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute animate-confetti"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `-5%`,
-                    width: `${Math.random() * 10 + 5}px`,
-                    height: `${Math.random() * 10 + 5}px`,
-                    background: `hsl(${Math.random() * 360}, 100%, 50%)`,
-                    borderRadius: `${Math.random() > 0.5 ? "50%" : "0"}`,
-                    transform: `rotate(${Math.random() * 360}deg)`,
-                    animationDuration: `${Math.random() * 3 + 2}s`,
-                    animationDelay: `${Math.random() * 0.5}s`,
-                  }}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="text-center text-xs text-zinc-500 pt-2">
-          All trades are subject to market conditions. <br />
-          Please review details before confirming.
+          <div className="text-center text-xs text-zinc-500 pt-2">
+            All trades are subject to market conditions. <br />
+            Please review details before confirming.
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TradePage
+export default TradePage;

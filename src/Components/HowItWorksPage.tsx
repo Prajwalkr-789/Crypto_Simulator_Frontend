@@ -35,7 +35,7 @@ const itemVariants = {
 
 export default function HowItWorksPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-zinc-950 text-white flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-zinc-900 text-white flex flex-col items-center justify-center p-6">
       <div className="max-w-5xl w-full text-center">
         <motion.h2
           className="text-4xl font-extrabold mb-6 text-gray-100"

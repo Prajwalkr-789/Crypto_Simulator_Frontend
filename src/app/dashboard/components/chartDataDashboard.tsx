@@ -85,7 +85,7 @@ function ChartDataDashboard() {
                       </button>
                     </div>
       
-                    <ResponsiveContainer width="100%" height={260}>
+                    <ResponsiveContainer className="max-sm:text-xs " width="100%" height={260}>
                       <LineChart
                         data={data}
                         margin={{ top: 10, right: 20, left: 0, bottom: 0 }}

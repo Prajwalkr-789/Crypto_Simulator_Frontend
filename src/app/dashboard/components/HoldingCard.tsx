@@ -10,12 +10,12 @@ const holdings = [
 const HoldingCard = () => {
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-2 sm:gap-y-2 gap-x-2 overflow-x-auto w-full h-full p-4 bg">
+    <div className="flex justify-center flex-col items-center">
+      <p className='text-white  text-xl font-bold'> Current crypto Holdings </p>
+      <div className="flex flex-row items-center flex-wrap space-y-1 max-sm:space-y-4 justify-center space-x-2  w-full h-full p-4 bg">
         {holdings.map(({ name, symbol, amount, value, change }, index) => {
-          const changeClass = change > 0 ? 'text-green-500' : 'text-red-500';
           return (
-            <div key={index} className="bg-gradient-to-tr from-zinc-900 via-zinc-800 to-zinc-900 text-white rounded-2xl shadow-xl p-4 w-3/12 hover:scale-[1.02] transition-transform duration-300 ease-in-out border border-zinc-700">
+            <div key={index} className="bg-gradient-to-tr sm:min-w-64 max-sm:min-w-72 from-black via-[#26085055] to-black border border-gray-800 text-white rounded-2xl shadow-xl p-4 w-3/12 hover:scale-[1.02] transition-transform duration-300 ease-in-out  ">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-xl font-bold text-white tracking-wide">{name}</h3>

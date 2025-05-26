@@ -16,18 +16,18 @@ const containerVariants = {
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8 , ease: "easeOut" } },
-  
 };
 
 function Purpose() {
   return (
-    <div className="flex bg-black justify-center items-center min-h-screen px-5">
+  
+    <div className="flex  justify-center items-center min-h-screen px-5">
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
-        className="p-8 rounded-2xl shadow-2xl backdrop-blur-lg max-w-2xl text-center"
+        className="p-8 rounded-2xl shadow-2xl bg-gradient-to-tr from-black via-[#04342f] to-black backdrop-blur-lg max-w-2xl text-center"
       >
         <motion.h2
           variants={itemVariants}

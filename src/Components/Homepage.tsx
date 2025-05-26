@@ -5,7 +5,11 @@ import Purpose from "./Purpose";
 import FeaturesPage from "@/Components/FeaturesPage";
 import HowItWorksPage from "./HowItWorksPage";
 import Cryptoprices from "@/Components/Cryptoprices";
-import '../app/globals.css';
+import "../app/globals.css";
+import {
+  ArrowRightCircleIcon,
+} from "lucide-react";
+import CryptoSpotlight from "./CryptoSpotlight";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -16,88 +20,137 @@ const fadeInUp = {
   }),
 };
 
-function Home() {
+
+
+function Homepage() {
   return (
-    <div className="bg-black text-gray-200">
-      {/* Hero Section */}
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <motion.h1
-          className="text-6xl mainheader2 font-extrabold bg-gradient-to-r from-zinc-500 via-zinc-600 to-zinc-900  bg-clip-text text-transparent"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          Crypto Simulator
-        </motion.h1>
+    <>
+    <div>
+    <div className="min-h-screen flex flex-col justify-center items-center text-center px-1 bg-black">
+      {/* bg-[#0e0e10] */}
+      {/* bg-gradient-to-r from-[#14b8a6] via-[#38bdf8] to-[#9333ea] */}
+      <div className="h-screen text-[#e4e4e7]  flex flex-row ml-[7%]  items-center justify-center text-center px-6 ">
+        {/* left section */}
+        <div className="flex flex-col justify-center items-center">
+          <p
+            className="text-5xl mb-10 md:text-7xl font-medium  bg-clip-text text-transparent bg-gradient-to-r
+    from-gray-100 via-gray-400 to-gray-100 tracking-tight md:mt-20 drop-shadow-lg"
+          >
+            Experience the thrill of trading{" "}
+            <span style={{textShadow:'0 0 1px #14b8a6, 0 0 3px #14b8a6, 0 0 15px #14b8a6'}} className="font-extralight text-[#14b8a6] ">Crypto</span>
+          </p>
 
-        <motion.p
-          className="text-lg md:text-xl  mt-4 max-w-2xl text-transparent bg-gradient-to-r from-zinc-700 via-zinc-400 to-zinc-700 bg-clip-text"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-        >
-          Experience the thrill of trading cryptocurrencies in a risk-free environment. Learn, practice, and master the art of crypto trading.
-        </motion.p>
+          <p className="text-lg text-center md:ml-[5%]  text-zinc-400 md:text-start w-full md:w-10/12 mb-12">
+            Dive into a world of crypto trading. Learn, practice, and conquer in
+            a risk-free environment, mastering your strategies in real-time.
+          </p>
 
-        <motion.button
-          className="mt-6  text-zinc-300 border-zinc-800 border-l border-t border-b bg-gradient-to-r from-zinc-900 via-zinc-950 to-black px-6 py-3 text-lg rounded-sm shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.1 }}
-        >
-          Get Started
-        </motion.button>
+          {/* <ShinyButton>Shiny Button</ShinyButton> */}
 
-        {/* Features */}
-        <div className="py-16 px-6 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {[
-            {
-              title: "Real-Time Market Data",
-              desc: "Stay updated with the latest market trends and prices. Analyze and make informed decisions.",
-            },
-            {
-              title: "Risk-Free Trading",
-              desc: "Practice trading with virtual currency. No real money involved, just pure learning.",
-            },
-            {
-              title: "Track Your Progress",
-              desc: "Monitor your performance and improve your strategies over time.",
-            },
-          ].map((feature, index) => (
-            <motion.div
-              key={index}
-              className="p-6 shadow-lg border border-zinc-800 text-center"
-              custom={index}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              <h3 className="text-green-400 text-xl font-semibold">
-                {feature.title}
-              </h3>
-              <p className="text-gray-300 mt-3">{feature.desc}</p>
-            </motion.div>
-          ))}
+          {/* <button className="mx-auto transition-all duration-300 ease-in-out transform hover:scale-105"> */}
+            <div className="mt-6 flex flex-row justify-center   items-center text-zinc-300 border-zinc-800 border-l border-t border-b bg-[#0e0e10] px-6 py-3 text-lg rounded-sm shadow-lg border hover:border-[#14b8a6] hover:cursor-pointer  transition-all duration-400 ease-in-out">
+              <button>Get Started</button>
+              <ArrowRightCircleIcon className="ml-3 w-6 h-6 " />
+            </div>
+          {/* </button> */}
+        </div>
+        {/* right section */}
+        <div className="hidden md:block flex flex-col justify-center items-center">
+          <section className="max-w-7xl mx-auto px-4 py-20">
+            
+             <div className="grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className=" p-6  bg-transparent rounded-xl  hover:shadow-xl opacity-0 hover:opacity-20 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-cyan-400 mb-2">
+                  What is Crypto?
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  Cryptocurrency is digital money built on blockchain
+                  technology. It’s decentralized, secure, and powered by
+                  cryptography.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-xl hover:shadow-xl opacity-0 hover:opacity-25 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-emerald-400 mb-2">
+                  Blockchain Basics
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  A blockchain is a public, unchangeable ledger that records all
+                  transactions securely using consensus and cryptography.
+                </p>
+              </div>
+
+              <div className="p-6 rounded-xl hover:shadow-xl opacity-0 hover:opacity-25 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-yellow-400 mb-2">
+                  How Trading Works
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  Buy low, sell high. Crypto trading involves analyzing charts,
+                  market trends, and using strategies like HODLing or scalping.
+                </p>
+              </div>
+
+              <div className=" p-6 rounded-xl hover:shadow-xl opacity-0 hover:opacity-25 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-purple-400 mb-2">
+                  Wallets & Security
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  Crypto wallets store your assets. Use hardware wallets and
+                  enable 2FA for strong security in this digital frontier.
+                </p>
+              </div>
+
+              <div className=" p-6 rounded-xl hover:shadow-xl opacity-0 hover:opacity-25 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-pink-400 mb-2">
+                  Decentralization
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  Unlike traditional systems, decentralized networks like
+                  Bitcoin run on peer-to-peer protocols without central control.
+                </p>
+              </div>
+
+              <div className=" p-6 rounded-xl hover:shadow-xl opacity-0 hover:opacity-25 transition-opacity duration-1000 ease-in-out">
+                <h3 className="text-xl font-semibold text-red-400 mb-2">
+                  Risks & Rewards
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  Crypto is volatile — while gains can be huge, losses can be
+                  just as fast. Learn, test, and manage your risks wisely.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className="absolute bottom-10 left-0 w-full text-center hidden md:block">
+          <div className="text-[#14b8a6] text-lg font-semibold animate-pulse">
+            <span>
+              BTC: $65,200 <span className="text-green-500">▲ 1.2%</span>{" "}
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Additional Sections */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <Purpose />
-        <FeaturesPage />
-        <HowItWorksPage />
-        <Cryptoprices />
-      </motion.div>
+      
     </div>
+    </div>
+    <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    transition={{ duration: 0.6 }}
+    viewport={{ once: true }}
+   
+  >
+    <Purpose />
+    {/* <CryptoSpotlight/> */}
+    <FeaturesPage />
+    <HowItWorksPage />
+    <Cryptoprices />
+  </motion.div>
+  </>
   );
 }
 
-export default Home;
+export default Homepage;

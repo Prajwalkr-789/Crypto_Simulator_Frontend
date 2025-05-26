@@ -8,7 +8,7 @@ const formatNumber = (num: number) => new Intl.NumberFormat("en-US").format(num)
 
 const CoinInfo = ({ coinData }: { coinData: any }) => {
   return (
-    <div className="flex flex-col-reverse md:flex-row  w-11/12 md:w-4/12 gap-8 mt-6">
+    <div className="flex flex-col-reverse md:flex-row  w-[95vw] md:w-4/12 gap-8 mt-6">
       {/* Left Section - Coin Info */}
       <div className="bg-gradient-to-br from-gray-900 to-gray-950 p-6 rounded-xl shadow-[0_0_15px_rgba(0,0,0,0.2)] w-full max-w-md border border-gray-800 relative overflow-hidden">
         {/* Background accent */}
