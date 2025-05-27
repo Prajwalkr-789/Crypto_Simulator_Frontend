@@ -40,14 +40,6 @@ const dummyBitcoinData = [
   { time: "13", price: 4190 },
 ];
 
-const cryptoPrices = [
-  { name: "Bitcoin", price: "$41,000" },
-  { name: "Ethereum", price: "$2,500" },
-  { name: "BNB", price: "$300" },
-  { name: "Solana", price: "$120" },
-  { name: "XRP", price: "$0.58" },
-  { name: "BNB", price: "$300" },
-];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },

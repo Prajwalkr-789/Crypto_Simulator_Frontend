@@ -1,12 +1,40 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowDown, ArrowUp,TrendingDown, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 const formatNumber = (num: number) => new Intl.NumberFormat("en-US").format(num);
 
-const CoinInfo = ({ coinData }: { coinData: any }) => {
+interface CoinData {
+  id: string;
+  name: string;
+  symbol: string;
+  image?: {
+    large?: string;
+  };
+  market_cap_rank?: number;
+  market_data?: {
+    current_price?: {
+      usd?: number;
+    };
+    price_change_percentage_24h?: number;
+    price_change_percentage_7d?: number;
+    high_24h?: {
+      usd?: number;
+    };
+    low_24h?: {
+      usd?: number;
+    };
+    market_cap?: {
+      usd?: number;
+    };
+    total_volume?: {
+      usd?: number;
+    };
+  };
+}
+
+const CoinInfo = ({ coinData }: { coinData: CoinData }) => {
   return (
     <div className="flex flex-col-reverse md:flex-row  w-[95vw] md:w-4/12 gap-8 mt-6">
       {/* Left Section - Coin Info */}
@@ -104,7 +132,7 @@ const CoinInfo = ({ coinData }: { coinData: any }) => {
 
           {/* Today's High */}
           <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700/50">
-            <span className="text-gray-400 text-xs">Today's High</span>
+            <span className="text-gray-400 text-xs">Today&#39;s High</span>
             <div className="flex items-center mt-1">
               <span className="font-bold text-cyan-400">
                 ${formatNumber(coinData?.market_data?.high_24h?.usd || 0)}
@@ -114,7 +142,7 @@ const CoinInfo = ({ coinData }: { coinData: any }) => {
 
           {/* Today's Low */}
           <div className="bg-gray-800/50 p-3 rounded-lg border border-gray-700/50">
-            <span className="text-gray-400 text-xs">Today's Low</span>
+            <span className="text-gray-400 text-xs">Today&#39;s Low</span>
             <div className="flex items-center mt-1">
               <span className="font-bold text-amber-400">
                 ${formatNumber(coinData?.market_data?.low_24h?.usd || 0)}
@@ -129,7 +157,7 @@ const CoinInfo = ({ coinData }: { coinData: any }) => {
           <div className="flex justify-between items-center border-b border-gray-800/50 pb-2">
             <span className="text-gray-400 text-sm">Market Cap:</span>
             <span className="font-bold text-purple-400">
-              ${(coinData?.market_data?.market_cap?.usd / 1e9).toFixed(2)}B
+              ${(coinData?.market_data?.market_cap?.usd ??0 / 1e9).toFixed(2)}B
             </span>
           </div>
 
@@ -137,7 +165,7 @@ const CoinInfo = ({ coinData }: { coinData: any }) => {
           <div className="flex justify-between items-center">
             <span className="text-gray-400 text-sm">24h Volume:</span>
             <span className="font-bold text-pink-400">
-              ${(coinData?.market_data?.total_volume?.usd / 1e9).toFixed(2)}B
+              ${(coinData?.market_data?.total_volume?.usd ?? 0 / 1e9).toFixed(2)}B
             </span>
           </div>
         </div>

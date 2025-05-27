@@ -8,7 +8,6 @@ import {
     YAxis,
     Tooltip,
     LineChart,
-    Legend,
   } from "recharts";
 
   type fakedata = {

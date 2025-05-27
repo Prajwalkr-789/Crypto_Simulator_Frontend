@@ -6,8 +6,8 @@ import Link from "next/link";
 import axios from "axios";
 import CoinInfoLeftPart from "@/Components/CoinInfoLeftPart";
 import ChartdataRightpart from "@/Components/ChartdataRightpart";
-import Loader from './components/Loader'
-import { div } from "framer-motion/client";
+// import Loader from './components/Loader'
+// import { div } from "framer-motion/client";
 // Dynamically import ApexCharts
 
 const CryptoDetails = () => {

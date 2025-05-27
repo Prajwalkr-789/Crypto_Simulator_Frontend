@@ -10,7 +10,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { logoutController , isAuthenticated , username } = useAuth(); 
   const logout = async () => {
-    const res = await axios.get('http://localhost:8080/auth/logout', {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -126,11 +126,11 @@ function Navbar() {
               { href: "/cryptopricepage", label: "Price Page" },
               { href: "/news", label: "News" },
               // { href: "/settings", label: "Settings" },
-            ].map(({ href, label, className = "text-white" }) => (
+            ].map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-2 text-base font-medium ${className} hover:text-orange-400 transition-colors duration-200`}
+                className={`flex items-center text-white gap-2 text-base font-medium  hover:text-orange-400 transition-colors duration-200`}
               >
                 <ChevronRight className="w-4 h-4" />
                 {label}

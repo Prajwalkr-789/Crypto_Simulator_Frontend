@@ -1,4 +1,4 @@
-import Home from '@/app/page'
+// import Home from '@/app/page'
 import { motion } from 'framer-motion'
 import { Menu, Settings, User } from 'lucide-react'
 import Link from 'next/link'
@@ -41,7 +41,7 @@ function DashboardNavbar({toggleSidebar , isSidebarOpen}: { toggleSidebar: () =>
                   href="/"
                   className="flex items-center space-x-4 px-4 py-2 hover:bg-gray-700 rounded-md"
                 >
-                  <Home className="w-6 h-6" />
+                  {/* <Home size={6} /> */}
                   {isSidebarOpen && <span>Dashboard</span>}
                 </Link>
               </li>

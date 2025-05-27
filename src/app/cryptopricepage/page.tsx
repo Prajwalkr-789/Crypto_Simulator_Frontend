@@ -1,9 +1,8 @@
 "use client";
-import axios from "axios";
+// import axios from "axios";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { toastUtils } from "@/utils/toastUtils";
-
 
 export interface CryptoData {
   name: string;
@@ -29,12 +28,12 @@ const Cryptopricespage: React.FC = () => {
       return;
     }
 
-    const eventSource = new EventSource("http://localhost:8080/api/price");
+    const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/price`);
 
     eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-    
+        console.log("SSE data received:", data);
         if (data.error) {
           console.error("SSE error:", data.error);
           return;
@@ -72,7 +71,7 @@ const Cryptopricespage: React.FC = () => {
     };
     
 
-    eventSource.onerror = (err) => {
+    eventSource.onerror = () => {
       toastUtils.showError("Error connecting to server. Please try again later.");
       eventSource.close();
     };

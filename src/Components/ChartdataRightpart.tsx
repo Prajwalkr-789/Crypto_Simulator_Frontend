@@ -9,7 +9,7 @@ const CryptoChart = ({
   days,
   setDays,
 }: {
-  priceHistory: any[];
+  priceHistory: { time: string; price: number }[];
   days: number;
   setDays: (days: number) => void;
 }) => {

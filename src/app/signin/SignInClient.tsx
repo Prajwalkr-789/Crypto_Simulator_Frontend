@@ -43,7 +43,7 @@ const Page = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:8080/auth/signin",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signin`,
         data,
         {
           headers: {
@@ -65,7 +65,7 @@ const Page = () => {
         return;
       }
   
-    } catch (error) {
+    } catch {
       toastUtils.showError("Something went wrong. Please try again.");
       return;
     }

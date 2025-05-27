@@ -3,7 +3,7 @@
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ArrowDown, ArrowUp, Loader2 } from "lucide-react";
+import { ArrowDown, ArrowUp} from "lucide-react";
 import { toastUtils } from "@/utils/toastUtils";
 import { useAuth } from "@/Contexts/AuthState"; 
 const TradePage = () => {
@@ -22,7 +22,7 @@ const TradePage = () => {
 const fetchBalance = async () => {
   try {
     const res = await axios.get(
-      `http://localhost:8080/api/walletbalance`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/walletbalance`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const fetchBalance = async () => {
     } else {
       toastUtils.showError(res.statusText || "Failed to fetch balance");
     }
-  } catch (error) {
+  } catch {
     toastUtils.showError("Error fetching balance");
   }
 };
@@ -77,7 +77,7 @@ const handleTrade = async () => {
   };
 
   const endpoint =
-    type === "buy" ? "http://localhost:8080/api/buy" : "http://localhost:8080/api/sell";
+    type === "buy" ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/buy` : `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/sell`;
 
   if (type === "buy" && quantity * price > balance) {
     toastUtils.showError("Insufficient balance for this trade.");

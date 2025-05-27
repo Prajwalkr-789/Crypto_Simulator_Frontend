@@ -35,11 +35,16 @@ import { toastUtils } from "@/utils/toastUtils";
     function Page() {
       const [isSidebarOpen, setIsSidebarOpen] = useState(false);
       const [isDashboardOpen, setIsDashboardOpen] = useState(false);
-      const[data , setdata] = useState();
+      interface DashboardData {
+        username?: string;
+        walletBalance?: number;
+        // add other properties as needed
+      }
+      const [data, setdata] = useState<DashboardData>();
 
       const Fetchdashboarddata = async () =>{
         try {
-          const response = await axios.get("http://localhost:8080/api/dash  ", {
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dash`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -54,8 +59,9 @@ import { toastUtils } from "@/utils/toastUtils";
               toastUtils.showError("Something went wrong please try refreshing the page")
               return
             }
-        } catch (error) {
+        } catch {
           toastUtils.showError("Failed to fetch data")
+          
         }
       }
     

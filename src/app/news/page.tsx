@@ -2,14 +2,24 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
+type NewsItem = {
+    id: string;
+    title: string;
+    body: string;
+    url: string;
+    imageurl: string;
+    source: string;
+    published_on: number;
+};
+
 const NewsPage: React.FC = () => {
-    const [news, setNews] = useState<unknown[]>([]);
+    const [news, setNews] = useState<NewsItem[]>([]);
 
     useEffect(() => {
         const fetchNews = async () => {
             try {
                 const response = await axios.get("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
-                setNews(response.data.Data.slice(0, 9)); // Limit to 9 news items
+                setNews(response.data.Data.slice(0, 9));
             } catch (error) {
                 console.error("Error fetching news:", error);
             }
@@ -26,7 +36,7 @@ const NewsPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 {news.map((item, index) => (
                     <div
-                        key={index}
+                        key={item.id ?? index}
                         className="rounded-lg overflow-hidden shadow-lg bg-zinc-900 border border-gray-700 transition-transform transform hover:scale-[1.03] duration-300"
                     >
                         <img

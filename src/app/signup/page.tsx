@@ -5,7 +5,7 @@ import { UserPlus2Icon } from 'lucide-react';
 import axios from 'axios';
 import { toastUtils } from '@/utils/toastUtils';
 import { useRouter } from 'next/navigation';
-import {useAuth} from '@/Contexts/AuthState'; // Ensure this import is correct based on your project structure
+import {useAuth} from '@/Contexts/AuthState'; 
 
 interface FormData {
     username: string;
@@ -29,10 +29,9 @@ const Page = () => {
         confirmPassword: ''
     });
 
-    const { login } = useAuth(); // Use the custom hook to get authentication state
+    const { login } = useAuth(); 
     
     const router = useRouter();
-    const [error, setError] = useState('');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -57,7 +56,6 @@ const Page = () => {
             return;
         }
 
-        setError('');
 
         const data : FormData = {
             username,
@@ -66,10 +64,9 @@ const Page = () => {
             confirmPassword
         };
 
-       const res = await axios.post('http://localhost:8080/auth/signup' , data, {
+       const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup` , data, {
             headers: {
                 'Content-Type': 'application/json',
-
             },
             withCredentials: true,
             validateStatus: (status) => {
