@@ -10,6 +10,35 @@ import ChartdataRightpart from "@/Components/ChartdataRightpart";
 // import { div } from "framer-motion/client";
 // Dynamically import ApexCharts
 
+interface CoinData {
+  id: string;
+  name: string;
+  symbol: string;
+  image?: {
+    large?: string;
+  };
+  market_cap_rank?: number;
+  market_data?: {
+    current_price?: {
+      usd?: number;
+    };
+    price_change_percentage_24h?: number;
+    price_change_percentage_7d?: number;
+    high_24h?: {
+      usd?: number;
+    };
+    low_24h?: {
+      usd?: number;
+    };
+    market_cap?: {
+      usd?: number;
+    };
+    total_volume?: {
+      usd?: number;
+    };
+  };
+}
+
 const CryptoDetails = () => {
   const isAuthenticated = true;
   const { coin } = useParams();
@@ -17,7 +46,7 @@ const CryptoDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [days, setDays] = useState(1);
-  const [coinData, setCoinData] = useState<any>(null);
+  const [coinData, setCoinData] = useState<CoinData | null>(null);
   const cacheRef = useRef<{ [key: number]: { time: string; price: number }[] }>({});
 
   const fetchData = useCallback(async () => {
@@ -75,7 +104,7 @@ const CryptoDetails = () => {
     <p className="text-center text-red-400 mt-4">Failed to fetch data. Try again later.</p>
   ) : (
     <div className="flex w-full h-full flex-col justify-center items-center md:flex-row gap-8 mt-6">
-      <CoinInfoLeftPart  coinData={coinData} />
+      {coinData && <CoinInfoLeftPart coinData={coinData} />}
       <ChartdataRightpart  priceHistory={priceHistory} days={days} setDays={setDays} />
     </div>
   )}
