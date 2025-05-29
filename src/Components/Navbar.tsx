@@ -66,14 +66,14 @@ function Navbar() {
                   News
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/settings"
                   className="hover:text-zinc-300 transition-colors duration-200"
                 >
                   Settings
                 </Link>
-              </li> 
+              </li>  */}
             
              { isAuthenticated &&   <li>  <button
                   onClick={logout}

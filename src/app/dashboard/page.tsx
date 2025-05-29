@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect, useState  } from "react";
+import React, { useEffect, useState  } from "react";
 import { motion } from "framer-motion";
 import { Home, User, Settings, Menu } from "lucide-react";
 import Link from "next/link";
@@ -106,7 +106,7 @@ function Page() {
     else{
       router.push("/signup");
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -229,7 +229,7 @@ function Page() {
             <div className="min-h-[200px] bg-gradient-to-bl from-zinc-950 via-zinc-950 to-yellow-950 text-white flex flex-col items-center justify-between p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-semibold">Wallet Balance</h2>
               <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-500">
-                ${data?.walletBalance ? data?.walletBalance : "Wallet Balance"}
+                ${data?.walletBalance ? data?.walletBalance.toFixed(2) : "Wallet Balance"}
               </p>
               <div className="flex justify-between w-full">
                 ``
@@ -280,10 +280,10 @@ function Page() {
             </div>
 
             <div className="col-span-1 md:col-span-2">
-              <RecentTransactionsDashboard recentTransactions={data?.transactions ?? []}  />
+              <RecentTransactionsDashboard recentTransactions={{ transactions: data?.transactions ?? [] }}  />
             </div>
 
-            <div className="bg-indigo-500 text-white flex items-center justify-center p-4">
+            {/* <div className="bg-indigo-500 text-white flex items-center justify-center p-4">
               <p>
                 Content 10 Lorem ipsum, dolor sit amet consectetur adipisicing
                 elit. Placeat accusantium aspernatur unde aliquam. Explicabo
@@ -293,9 +293,9 @@ function Page() {
                 quaerat magnam itaque? Explicabo dolores commodi veritatis
                 maxime maiores repudiandae ea similique in
               </p>
-            </div>
+            </div> */}
 
-            <div className="bg-gray-700 text-white flex items-center justify-center p-4">
+            {/* <div className="bg-gray-700 text-white flex items-center justify-center p-4">
               <p>
                 Content 11 Lorem ipsum, dolor sit amet consectetur adipisicing
                 elit. Placeat accusantium aspernatur unde aliquam. Explicabo
@@ -305,7 +305,7 @@ function Page() {
                 quaerat magnam itaque? Explicabo dolores commodi veritatis
                 maxime maiores repudiandae ea similique in
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
