@@ -1,12 +1,15 @@
 import React from "react";
 
 type recentTransactiondatatype = {
-  coinName: string;
-  priceBought: number;
+  coinName: string,
+  commissionFee: number,
+  createdAt: string;
+  pricePerCoin: number;
+  purchaseDate: string;
   quantity: number;
-  totalSpent: number;
-  date: string;
-};
+  totalAmount: number;
+  transactionType: "buy" | "sell";
+}
 
 type recentTransactionType = {
   transactions: recentTransactiondatatype[];
@@ -52,7 +55,7 @@ const recentTransactions: recentTransactionType = {
   ],
 };
 
-function RecentTransactionsDashboard() {
+function RecentTransactionsDashboard({recentTransactions}: {recentTransactions: recentTransactionType}) {
   return (
     <div>
       <div className=" bg-gradient-to-r from-zinc-950 to-zinc-950 text-white flex flex-col items-center justify-center p-4 rounded-xl max-w-2xl shadow-lg">
@@ -61,7 +64,7 @@ function RecentTransactionsDashboard() {
         </h2>
         <div className="w-full">
           <ul className="w-full grid grid-cols-1 md:grid-cols-2 gap-2">
-            {recentTransactions.transactions.map((transaction, index) => (
+            {recentTransactions.map((transaction, index) => (
               <li
                 key={index}
                 className="mb-4 px-6 py-4 border border-zinc-800 hover:shadow-md shadow-zinc-800 text-white backdrop-blur-sm  rounded-xl transition duration-300 ease-in-out transform hover:scale-105"

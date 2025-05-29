@@ -20,6 +20,7 @@ const NewsPage: React.FC = () => {
             try {
                 const response = await axios.get("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
                 setNews(response.data.Data.slice(0, 9));
+                console.log("Fetched news:", response.data.Data.slice(0, 9));
             } catch (error) {
                 console.error("Error fetching news:", error);
             }

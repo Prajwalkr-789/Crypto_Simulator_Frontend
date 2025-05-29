@@ -9,6 +9,7 @@ import { useAuth } from "@/Contexts/AuthState";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { logoutController , isAuthenticated , username } = useAuth(); 
+  const urllink = "https://api.dicebear.com/7.x/lorelei/svg?seed="
   const logout = async () => {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
       headers: {
@@ -73,14 +74,14 @@ function Navbar() {
                   Settings
                 </Link>
               </li> 
-              <li>
-             { isAuthenticated &&   <button
+            
+             { isAuthenticated &&   <li>  <button
                   onClick={logout}
                   className="hover:text-zinc-300 transition-colors duration-200"
                 >
                   Logout
-                </button>}
-              </li>
+                </button></li>}
+              
               {!isAuthenticated ? (
                 <li>
                   <Link
@@ -92,9 +93,9 @@ function Navbar() {
                 </li>
               ) : (
                 <li className="flex items-center gap-2">
-                  <span className="text-white font-medium">{username}</span>
+                  <span className="text-gray-200 font-medium">{username ? username : "Username"}</span>
                   <img
-                    src="https://api.dicebear.com/7.x/lorelei/svg?seed=100"
+                    src={urllink + (username?.length ?? 100)}
                     alt="User Avatar"
                     className="w-10 h-10 rounded-full"
                   />

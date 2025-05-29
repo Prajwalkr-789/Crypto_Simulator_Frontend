@@ -1,5 +1,6 @@
 "use client";
-import { createContext, useContext,  useState, ReactNode } from "react";
+import axios from "axios";
+import { createContext, useContext,  useState, ReactNode, useEffect } from "react";
 // import axios from "axios";
 
 type AuthProviderProps = {
@@ -20,45 +21,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
-  // const checkAuth = async () => {
-  //   try {
-  //     const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
-  //       withCredentials: true,
-  //       validateStatus: (status) => {
-  //         return status >= 200 && status < 500; 
-  //       },
-  //     });
-  //     if (res.status === 200) {
-  //       setIsAuthenticated(true);
-  //     }
-  //     if(res.status === 401) {
-  //       setIsAuthenticated(false);
-  //     }
-  //     if(res.status === 403) {
-  //       setIsAuthenticated(false);
-  //     }
-  //   } catch {
-  //     setIsAuthenticated(false);
-  //   }
-  // };
+  const checkAuth = async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        setIsAuthenticated(true);
+      }
+    } catch {
+      setIsAuthenticated(false);
+    }
+  };
 
-  // useEffect(() => {
-  //   checkAuth(); // initial check
+  useEffect(() => {
+    checkAuth(); 
 
-  //   // On tab focus
-  //   const handleFocus = () => {
-  //     checkAuth();
-  //   };
-  //   window.addEventListener("focus", handleFocus);
+    const handleFocus = () => {
+      checkAuth();
+    };
+    window.addEventListener("focus", handleFocus);
 
-  //   // Periodic recheck every 5 mins
-  //   const interval = setInterval(checkAuth, 5 * 60 * 1000);
+    // Periodic recheck every 5 mins
+    const interval = setInterval(checkAuth, 5 * 60 * 1000);
 
-  //   return () => {
-  //     window.removeEventListener("focus", handleFocus);
-  //     clearInterval(interval);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      clearInterval(interval);
+    };
+  }, []);
 
   const login = (username : string) => {setIsAuthenticated(true); setUsername(username)}; ;
 

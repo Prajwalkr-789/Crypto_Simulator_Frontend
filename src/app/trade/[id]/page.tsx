@@ -11,6 +11,7 @@ const TradePage = () => {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
+  const [isloading, setIsLoading] = useState(true);
 
   const coinName = params.id?.toString();
   const price = Number.parseFloat(searchParams.get("price") || "0");
@@ -45,8 +46,10 @@ const fetchBalance = async () => {
 useEffect(() => {
   if(!isAuthenticated){
     router.push('/signup')
+  }else{
+    fetchBalance();
+    setIsLoading(false);
   }
-  fetchBalance();
 }, []);
 
 
@@ -116,6 +119,16 @@ const handleTrade = async () => {
 };
 
   const totalValue = amount * price || 0;
+
+   if (isloading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <div className="animate-pulse h-10 w-40  rounded-lg">
+          Loading....
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-tl from-gray-950 via-gray-900 to-black">
