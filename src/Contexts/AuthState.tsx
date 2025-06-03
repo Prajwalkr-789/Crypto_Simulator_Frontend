@@ -21,35 +21,35 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
-  const checkAuth = async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
-        withCredentials: true,
-      });
-      if (res.status === 200) {
-        setIsAuthenticated(true);
-      }
-    } catch {
-      setIsAuthenticated(false);
-    }
-  };
+  // const checkAuth = async () => {
+  //   try {
+  //     const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
+  //       withCredentials: true,
+  //     });
+  //     if (res.status === 200) {
+  //       setIsAuthenticated(true);
+  //     }
+  //   } catch {
+  //     setIsAuthenticated(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    checkAuth(); 
+  // useEffect(() => {
+  //   checkAuth(); 
 
-    const handleFocus = () => {
-      checkAuth();
-    };
-    window.addEventListener("focus", handleFocus);
+  //   const handleFocus = () => {
+  //     checkAuth();
+  //   };
+  //   window.addEventListener("focus", handleFocus);
 
-    // Periodic recheck every 5 mins
-    const interval = setInterval(checkAuth, 5 * 60 * 1000);
+  //   // Periodic recheck every 5 mins
+  //   const interval = setInterval(checkAuth, 5 * 60 * 1000);
 
-    return () => {
-      window.removeEventListener("focus", handleFocus);
-      clearInterval(interval);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("focus", handleFocus);
+  //     clearInterval(interval);
+  //   };
+  // }, []);
 
   const login = (username : string) => {setIsAuthenticated(true); setUsername(username)}; ;
 
