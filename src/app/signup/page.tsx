@@ -105,8 +105,8 @@ const Page = () => {
 }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-black">
-            <div style={{border:"0.1px solid oklch(0.442 0.017 285.786)"}} className="w-full max-w-sm p-8 space-y-6 bg-gradient-to-tr from-zinc-900 via-black to-zinc-950  rounded-lg shadow-lg">
+        <div className="flex items-center justify-center min-h-screen bg-black p-7 sm:p-0">
+            <div style={{border:"0.1px solid oklch(0.442 0.017 285.786)"}} className="w-full max-w-sm p-6 space-y-6 bg-gradient-to-tr from-zinc-900 via-black to-zinc-950  rounded-lg shadow-lg">
                 <div>
                 <UserPlus2Icon className="w-8 h-8 mx-auto text-gray-200 rounded-full  " />
                 <h2 className="text-3xl font-bold text-center text-white">Sign Up</h2>

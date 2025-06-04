@@ -73,8 +73,8 @@ const Page = () => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="w-full border border-gray-500 max-w-sm p-8 space-y-9  rounded-lg shadow-lg">
+    <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-black">
+      <div className="w-full border border-gray-500 max-w-sm p-6 space-y-9  rounded-lg shadow-lg">
         <div>
           <LogIn className="w-8 h-8 mx-auto text-gray-200 rounded-full  " />
 
@@ -127,7 +127,7 @@ const Page = () => {
           <button
             onClick={handleSubmit}
             type="submit"
-            className="w-full px-4 py-2 text-white bg-zinc-800 rounded-md hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500"
+            className="w-full px-4 py-2 font-semibold text-zinc-800 bg-zinc-200 rounded-md hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500"
           >
             Sign In
           </button>
