@@ -74,12 +74,15 @@ function Page() {
   const router = useRouter();
   const Fetchdashboarddata = async () => {
     try {
+      const token = localStorage.getItem("jwt");
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dash`,
         {
           method: "GET",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+
           },
           withCredentials: true,
         }

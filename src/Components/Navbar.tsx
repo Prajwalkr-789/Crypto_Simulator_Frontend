@@ -2,29 +2,23 @@
 import React, { useState } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import axios from "axios";
 import { toastUtils } from "@/utils/toastUtils";
 import { useAuth } from "@/Contexts/AuthState"; 
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { logoutController , isAuthenticated , username } = useAuth(); 
+  console.log(username)
   const urllink = "https://api.dicebear.com/7.x/lorelei/svg?seed="
   const logout = async () => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-  }
-    )
-    if (res.status === 200) {
-      logoutController();
-      toastUtils.showInfo("Logout successful");
-      window.location.href = "/";
-    }
-     else {
-      toastUtils.showError("Logout failed");
+    logoutController();
+    try {
+      localStorage.removeItem("jwt");
+      toastUtils.showMessage("Logged out successfully.");
+  
+    } catch (error) {
+      console.error("Logout error:", error);
+      toastUtils.showError("Failed to log out. Please try again.");
     }
   }
   return (

@@ -77,6 +77,10 @@ const Page = () => {
 
         if(res.status === 201) {
             toastUtils.showMessage('Sign up successful');
+
+            localStorage.removeItem('jwt');
+            localStorage.setItem('jwt', res.data.token);
+
             login(res.data.username); 
             setFormData({
                 username: '',

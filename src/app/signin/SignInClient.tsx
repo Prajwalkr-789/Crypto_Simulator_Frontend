@@ -57,6 +57,8 @@ const Page = () => {
       );
   
       if (response.status === 200) {
+        localStorage.removeItem("jwt");
+        localStorage.setItem("jwt", response.data.token);
         login(response.data.username);
         toastUtils.showMessage("Login successful.");
         router.push("/"); 

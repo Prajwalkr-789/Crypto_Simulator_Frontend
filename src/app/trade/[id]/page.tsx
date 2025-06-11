@@ -22,10 +22,16 @@ const TradePage = () => {
 
 const fetchBalance = async () => {
   try {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      toastUtils.showError("You need to be logged in to fetch balance.");
+      return;
+    }
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/walletbalance`,
       {
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         withCredentials: true,
@@ -88,8 +94,14 @@ const handleTrade = async () => {
   }
 
   try {
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      toastUtils.showError("You need to be logged in to perform a trade.");
+      return;
+    }
     const response = await axios.post(endpoint, payload, {
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       withCredentials: true,
