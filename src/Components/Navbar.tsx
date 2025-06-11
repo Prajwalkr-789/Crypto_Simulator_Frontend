@@ -143,6 +143,7 @@ function Navbar() {
                 <>
                   <div
                     className={`flex items-center gap-2 text-base font-medium text-white hover:text-orange-400 transition-colors duration-200`}
+                  onClick={logout}
                   >
                     <ChevronRight className="w-4 h-4" />
                     Logout
@@ -153,7 +154,7 @@ function Navbar() {
                       alt="User Avatar"
                       className="w-10 h-10 rounded-full"
                     />
-                    <span className="text-white font-medium">Username</span>
+                    <span className="text-white font-medium">{username?username:"Username"}</span>
                   </div>
                 </>
               )}
