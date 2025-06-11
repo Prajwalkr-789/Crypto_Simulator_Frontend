@@ -185,7 +185,7 @@ const Page = () => {
                     <button
                         onClick={handleSubmit}
                         type="submit"
-                        className="w-full px-4 py-2 font-semibold text-gray-800 bg-zinc-200 rounded-md hover:bg-zinc-300 focus:outline-none focus:ring-2 focus:ring-zinc-500"
+                        className="w-full px-4 py-2 font-semibold text-gray-800 bg-zinc-200 rounded-md hover:bg-zinc-300 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-500"
                     >
                         Sign Up
                     </button>

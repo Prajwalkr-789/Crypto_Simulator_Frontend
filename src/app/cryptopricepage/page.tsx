@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { toastUtils } from "@/utils/toastUtils";
+import { div } from "framer-motion/client";
 
 export interface CryptoData {
   name: string;
@@ -85,9 +86,12 @@ const Cryptopricespage: React.FC = () => {
     const cleanup = initializeSSE();
     return cleanup; // Ensures SSE is closed on unmount
   }, []);
+  
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-gray-950 text-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
+    <>
+   { cryptoData == null  ?(<div className="animate-pulse mainheader2 flex justify-center items-center text-[2rem] h-screen"><p>Loading...</p></div> ):
+    (<div className="min-h-screen bg-gradient-to-br from-black via-zinc-950 to-gray-950 text-gray-200 p-4 sm:p-6 md:p-8 lg:p-10">
       <h1 className="text-4xl mt-14 font-serif text-center mb-4 bg-clip-text text-transparent bg-gradient-to-t from-zinc-200 via-zinc-300 to-zinc-600 drop-shadow-lg">
         Crypto Prices
       </h1>
@@ -121,7 +125,9 @@ const Cryptopricespage: React.FC = () => {
           </Link>
         ))}
       </div>
-    </div>
+    </div>)
+}
+    </>
   );
 };
 

@@ -46,10 +46,10 @@ const Page = () => {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signin`,
         data,
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true,
           validateStatus: (status) => {
             return status >= 200 && status < 500; 
           }
@@ -127,7 +127,7 @@ const Page = () => {
           <button
             onClick={handleSubmit}
             type="submit"
-            className="w-full px-4 py-2 font-semibold text-zinc-800 bg-zinc-200 rounded-md hover:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-500"
+            className="w-full px-4 py-2 font-semibold text-zinc-800 bg-zinc-200 rounded-md hover:bg-zinc-300 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-zinc-500"
           >
             Sign In
           </button>
