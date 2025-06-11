@@ -1,6 +1,6 @@
 "use client";
-import axios from "axios";
-import { createContext, useContext,  useState, ReactNode, useEffect } from "react";
+// import axios from "axios";
+import { createContext, useContext,  useState, ReactNode } from "react";
 // import axios from "axios";
 
 type AuthProviderProps = {
@@ -21,18 +21,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
 
-  const checkAuth = async () => {
-    try {
-      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
-        withCredentials: true,
-      });
-      if (res.status === 200) {
-        setIsAuthenticated(true);
-      }
-    } catch {
-      setIsAuthenticated(false);
-    }
-  };
+  // const checkAuth = async () => {
+  //   try {
+  //     const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check`, {
+  //       withCredentials: true,
+  //     });
+  //     if (res.status === 200) {
+  //       setIsAuthenticated(true);
+  //     }
+  //   } catch {
+  //     setIsAuthenticated(false);
+  //   }
+  // };
 
   // useEffect(() => {
   //   checkAuth(); 

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { toastUtils } from "@/utils/toastUtils";
-import { div } from "framer-motion/client";
 
 export interface CryptoData {
   name: string;
