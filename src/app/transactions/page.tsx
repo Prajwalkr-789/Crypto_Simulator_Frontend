@@ -37,7 +37,7 @@ function TransactionHistoryPage() {
             if(res.status == 200){
                 settransactiondata(res.data)
             }
-        } catch (error) {
+        } catch {
             toastUtils.showError("Something went wrong try again!")
             router.push('/signup')
         }
