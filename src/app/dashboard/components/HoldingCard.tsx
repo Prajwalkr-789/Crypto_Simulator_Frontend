@@ -7,18 +7,11 @@ interface Holding {
   quantity: number;
 }
 
-// const holdings = [
-//     { name: 'Bitcoin', symbol: 'BTC', amount: 2.5, value: 65000, change: 5 },
-//     { name: 'Ethereum', symbol: 'ETH', amount: 10, value: 4200, change: -2.3 },
-//     { name: 'Litecoin', symbol: 'LTC', amount: 50, value: 150, change: 1.2 },
-//     { name: 'Bitcoin', symbol: 'BTC', amount: 2.5, value: 65000, change: 5 },
-//   ];
 
 interface HoldingCardProps {
   holdings: Holding[];
 }
 
-// const HoldingCard = ({holdings}) => {
 const HoldingCard: React.FC<HoldingCardProps> = ({ holdings }) => {
 
   return (

@@ -50,7 +50,6 @@ const Cryptopricespage: React.FC = () => {
       }
 
         const cryptoData: CryptoData[] = data.map((coin: CryptoData) => {
-          // const existing = cachepricesref.current[1]?.find(c => c.symbol === coin.symbol);
     
           return {
             name: coin.name,
@@ -58,7 +57,7 @@ const Cryptopricespage: React.FC = () => {
             current_price: coin.current_price,
             high_24h: coin.high_24h,
             low_24h: coin.low_24h,
-            image:imageCache.current.get(coin.symbol) || coin.image, // Keep old image if exists
+            image:imageCache.current.get(coin.symbol) || coin.image,
             price_change_percentage_24h: coin.price_change_percentage_24h,
           };
         });
@@ -83,7 +82,7 @@ const Cryptopricespage: React.FC = () => {
 
   useEffect(() => {
     const cleanup = initializeSSE();
-    return cleanup; // Ensures SSE is closed on unmount
+    return cleanup; 
   }, []);
   
 

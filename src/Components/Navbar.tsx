@@ -4,18 +4,19 @@ import { Menu, X, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { toastUtils } from "@/utils/toastUtils";
 import { useAuth } from "@/Contexts/AuthState"; 
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { logoutController , isAuthenticated , username } = useAuth(); 
-  console.log(username)
+  const router = useRouter(); // Assuming you have a router in your AuthContext
   const urllink = "https://api.dicebear.com/7.x/lorelei/svg?seed="
   const logout = async () => {
     logoutController();
     try {
       localStorage.removeItem("jwt");
       toastUtils.showMessage("Logged out successfully.");
-  
+      router.push('/')
     } catch (error) {
       console.error("Logout error:", error);
       toastUtils.showError("Failed to log out. Please try again.");
@@ -36,6 +37,14 @@ function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex">
             <ul className="flex gap-8 items-center text-sm font-normal">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-zinc-300 transition-colors duration-200"
+                >
+                  Home
+                </Link>
+                </li>
               <li>
                 <Link
                   href="/dashboard"
@@ -60,16 +69,17 @@ function Navbar() {
                   News
                 </Link>
               </li>
-              {/* <li>
+              <li>
                 <Link
-                  href="/settings"
+                  href="/transactions"
                   className="hover:text-zinc-300 transition-colors duration-200"
                 >
-                  Settings
+                  Transactions
                 </Link>
-              </li>  */}
+              </li> 
             
-             { isAuthenticated &&   <li>  <button
+             { isAuthenticated &&  
+              <li>  <button
                   onClick={logout}
                   className="hover:text-zinc-300 transition-colors duration-200"
                 >
@@ -117,6 +127,7 @@ function Navbar() {
         {isOpen && (
           <div className="md:hidden bg-black/90 p-5 absolute top-full left-0 w-full flex flex-col gap-4 shadow-xl z-40">
             {[
+              { href: "/", label: "Home" },
               { href: "/dashboard", label: "Dashboard" },
               { href: "/cryptopricepage", label: "Price Page" },
               { href: "/news", label: "News" },
@@ -141,6 +152,13 @@ function Navbar() {
                 </Link>
               ) : (
                 <>
+                  <Link href='/transactions'
+                    className={`flex items-center gap-2 mb-4 text-base font-medium text-white hover:text-orange-400 transition-colors duration-200`}
+                  onClick={logout}
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                    Transactions
+                  </Link>
                   <div
                     className={`flex items-center gap-2 text-base font-medium text-white hover:text-orange-400 transition-colors duration-200`}
                   onClick={logout}

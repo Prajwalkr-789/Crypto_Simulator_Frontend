@@ -1,8 +1,6 @@
 "use client";
 import axios from "axios";
-// import axios from "axios";
 import { createContext, useContext,  useState, ReactNode, useEffect } from "react";
-// import axios from "axios";
 
 type AuthProviderProps = {
   children: ReactNode;
@@ -36,7 +34,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
        await setIsAuthenticated(true);
        await setUsername(res.data.username); 
       }
-      else{
+      else if(res.status == 403){
+        localStorage.removeItem('jwt')
         setIsAuthenticated(false);
         setUsername(null);
       }
@@ -53,7 +52,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
     window.addEventListener("focus", handleFocus);
 
-    // Periodic recheck every 5 mins
     const interval = setInterval(checkAuth, 5 * 60 * 1000);
 
     return () => {
