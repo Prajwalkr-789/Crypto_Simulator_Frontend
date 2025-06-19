@@ -57,7 +57,7 @@ function TransactionHistoryPage() {
       </div>
 
       <div className="mt-10 space-y-6">
-        { !transactiondata && transactiondata?.map((tx, index) => {
+        { transactiondata.length > 0 && transactiondata?.map((tx, index) => {
           const dateLabel = tx.transactionType === "buy" ? "Purchase" : "Sell";
           const netCost = tx.totalAmount + tx.commissionFee;
 

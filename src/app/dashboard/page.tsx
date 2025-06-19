@@ -266,7 +266,8 @@ function Page() {
             </div>
 
             <div className="min-h-[150px]">
-              <PortfolioSnapshot holdings={data?.holdings ?? []} />
+              {/* <PortfolioSnapshot holdings={data?.holdings ?? []} /> */}
+              <PortfolioSnapshot  />
             </div>
 
             <div className="min-h-[200px] bg-yellow-500 text-white p-4">
