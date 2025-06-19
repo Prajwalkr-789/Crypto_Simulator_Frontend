@@ -3,17 +3,17 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 
-interface Holding {
-  coinName: string;
-  purchaseDate: string;
-  purchasePrice: number;
-  quantity: number;
-}
+// interface Holding {
+//   coinName: string;
+//   purchaseDate: string;
+//   purchasePrice: number;
+//   quantity: number;
+// }
 
 
-interface HoldingCardProps {
-  holdings: Holding[];
-}
+// interface HoldingCardProps {
+//   holdings: Holding[];
+// }
 
 
 const data = [
