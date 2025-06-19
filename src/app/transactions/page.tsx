@@ -46,6 +46,8 @@ function TransactionHistoryPage() {
     },[])
 
   return (
+    <>
+
     <div className="min-h-screen bg-black text-zinc-200 p-4">
       <div className="flex justify-center items-center mt-14 text-center flex-wrap">
         <SparklesIcon className="w-8 h-8 text-indigo-400 animate-pulse" />
@@ -55,7 +57,7 @@ function TransactionHistoryPage() {
       </div>
 
       <div className="mt-10 space-y-6">
-        { !transactiondata ? <p className="animate-pulse text-zinc-200 text-2xl">Loading...</p> : (transactiondata?.map((tx, index) => {
+        { !transactiondata && transactiondata?.map((tx, index) => {
           const dateLabel = tx.transactionType === "buy" ? "Purchase" : "Sell";
           const netCost = tx.totalAmount + tx.commissionFee;
 
@@ -131,9 +133,10 @@ function TransactionHistoryPage() {
               </div>
             </div>
           );
-        }))}
+        })}
       </div>
     </div>
+    </>
   );
 }
 

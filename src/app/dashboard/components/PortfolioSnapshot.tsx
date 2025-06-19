@@ -3,6 +3,19 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
 
+interface Holding {
+  coinName: string;
+  purchaseDate: string;
+  purchasePrice: number;
+  quantity: number;
+}
+
+
+interface HoldingCardProps {
+  holdings: Holding[];
+}
+
+
 const data = [
   { shortform: 'BTC' ,name : "Bitcoin" , value: 55 },
   { shortform: 'ETH',name : "Ethereum" ,value: 35 },
@@ -12,6 +25,9 @@ const data = [
 const COLORS = ['#00b894', '#0984e3', '#fdcb6e']
 
 export default function PortfolioSnapshot() {
+
+  
+
   return (
     <Card className=" text-white border border-zinc-800 rounded-2xl shadow-xl">
       <CardHeader>

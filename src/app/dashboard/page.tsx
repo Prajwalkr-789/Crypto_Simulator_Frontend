@@ -82,7 +82,6 @@ function Page() {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-
           },
           withCredentials: true,
         }
@@ -267,7 +266,7 @@ function Page() {
             </div>
 
             <div className="min-h-[150px]">
-              <PortfolioSnapshot />
+              <PortfolioSnapshot holdings={data?.holdings ?? []} />
             </div>
 
             <div className="min-h-[200px] bg-yellow-500 text-white p-4">

@@ -154,11 +154,11 @@ function Navbar() {
                 <>
                   <Link href='/transactions'
                     className={`flex items-center gap-2 mb-4 text-base font-medium text-white hover:text-orange-400 transition-colors duration-200`}
-                  onClick={logout}
                   >
                     <ChevronRight className="w-4 h-4" />
                     Transactions
                   </Link>
+
                   <div
                     className={`flex items-center gap-2 text-base font-medium text-white hover:text-orange-400 transition-colors duration-200`}
                   onClick={logout}
