@@ -1,37 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🪙 Crypto Trading Simulator (Next.js)
 
-## Getting Started
+A full-stack **Crypto Trading Simulator** built with **Next.js** and **Node.js**, where users can virtually trade cryptocurrencies using live price data. Includes real-time portfolio tracking, transaction history, and a backend price worker — no real money involved.
 
-First, run the development server:
+![Screenshot](https://your-screenshot-url.png)
+
+---
+
+## 🌐 Live Demo
+
+🔗 [Live App (Frontend - Vercel)](https://crypto-simulator-frontend.vercel.app/)  
+
+---
+
+## 🚀 Features
+
+### 🔐 Authentication
+- JWT-based login/signup flow
+- Passwords hashed with bcrypt
+
+### 📈 Crypto Market Prices
+- Real-time price updates via worker
+- Redis Pub/Sub used to broadcast prices across users
+
+### 💰 Simulated Trading
+- Buy/sell crypto with a virtual wallet
+- Auto-calculated portfolio value based on live prices
+- Transaction log with timestamps and quantities
+
+### 📊 Portfolio View
+- Holdings summary
+- Profit/Loss based on market changes
+- Simple charts or asset tables
+- 
+### 🧾 Transaction History
+- Logs every buy/sell with timestamps and prices
+- Viewable in a sortable table
+
+### 📰 Crypto News Feed
+- Dedicated `/news` page showing top market headlines
+- `/newsdetails` page to view full article summaries
+- Fetched via external crypto news API (e.g. NewsAPI, CryptoCompare)
+---
+
+## 🛠️ Tech Stack
+
+| Layer        | Tech                                             |
+|--------------|--------------------------------------------------|
+| Frontend     | **Next.js (App Router)**, Tailwind CSS, Axios    |
+| Backend      | Node.js, Express, MongoDB, JWT                   |
+| Realtime     | Redis Pub/Sub for price broadcasting             |
+| Price Sync   | Background Worker / Cron Scheduler               |
+| Charts       | Recharts (for portfolio stats, P&L visualization)|
+| News Feed    | Crypto News API integration                      |
+| Hosting      | Vercel (frontend), Render (backend)              |
+
+---
+
+## 📁 Project Structure
+
+### Frontend (`NextJS`)
+
+```txt
+/app
+  ├─ /cryptodetails/[coin]     → Detailed coin info page
+  ├─ /cryptopricepage          → All coin prices listing
+  ├─ /dashboard                → User's portfolio & stats
+  ├─ /news                     → Crypto news listing
+  ├─ /newsdetails              → Individual news detail page
+  ├─ /signin                   → Login form
+  ├─ /signup                   → Registration form
+  ├─ /trade/[id]               → Trade simulator for a specific coin
+  └─ /transactions             → User's transaction history
+
+/Components                    → UI elements (Navbar, etc.)
+/Contexts                      → Global state/context providers
+```
+## 🧪 Setup Instructions
 
 ```bash
+git clone https://github.com/your-username/crypto-simulator-frontend
+cd crypto-simulator-frontend
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+NEXT_PUBLIC_API_URL=https://your-backend.onrender.com / http://localhost:8080/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🔗 [Github Link (Backend)](https://github.com/Prajwalkr-789/Crypto_Simulator_Backend)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Crypto_Simulator_Frontend
