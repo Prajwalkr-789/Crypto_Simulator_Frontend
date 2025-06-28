@@ -2,7 +2,7 @@
 
 A full-stack **Crypto Trading Simulator** built with **Next.js** and **Node.js**, where users can virtually trade cryptocurrencies using live price data. Includes real-time portfolio tracking, transaction history, and a backend price worker — no real money involved.
 
-![Screenshot](https://your-screenshot-url.png)
+![Screenshot](https://github.com/user-attachments/assets/d09c2ad5-d553-473a-80ff-823e6f0a7b99)
 
 ---
 
